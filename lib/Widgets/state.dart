@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-abstract class _Common {
+abstract class CoreCommonState {
   void showLongToast(String message);
   void showShortToast(String message);
 
@@ -13,6 +13,6 @@ abstract class _Common {
   void showErrorDialog(String message);
 }
 
-abstract class CoreState<T extends StatefulWidget> extends State implements _Common {}
+abstract class CoreState<T extends StatefulWidget> extends State implements CoreCommonState {}
 
-abstract class CoreStatelessWidget extends StatelessWidget implements _Common {}
+abstract class CoreStatelessWidget extends StatelessWidget implements CoreCommonState {}
