@@ -45,7 +45,7 @@ abstract class VersionControlManager {
     return playstoreUrls.entries
         .firstWhere((entry) => entry.key == Platform.operatingSystem,
             orElse: () => null)
-        .value;
+        ?.value;
   }
 
   Widget shouldUpdateWidget(BuildContext context, String currentPlaystoreUrl,
