@@ -34,8 +34,7 @@ abstract class VersionControlManager {
   /// ```
   Map<String, String> get playstoreUrls;
 
-  String get playstoreIconAssetImagePath;
-  String get appstoreIconAssetImagePath;
+  Widget get appstoreIconWidget;
 
   bool get shouldUpdate;
   bool get mustUpdate;
@@ -70,16 +69,7 @@ abstract class VersionControlManager {
                     },
                     child: Row(
                       children: [
-                        Image.asset(
-                          Platform.isAndroid
-                              ? playstoreIconAssetImagePath
-                              : Platform.isIOS
-                                  ? appstoreIconAssetImagePath
-                                  : Container(),
-                          width: 20,
-                          fit: BoxFit.cover,
-                          height: 20,
-                        ),
+                        appstoreIconWidget,
                         Text(Platform.isAndroid
                             ? 'Download on playstore'
                             : Platform.isIOS
