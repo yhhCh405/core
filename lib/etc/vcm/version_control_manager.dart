@@ -110,7 +110,7 @@ abstract class VersionControlManager {
     );
   }
 
-  Widget mustUpdateWidget(BuildContext context,
+  Widget mustUpdateWidget(BuildContext context, String currentPlaystoreUrl,
       {@required Function onPressedDownload,
       @required Function onPressedGooglePlayUpdate,
       @required Function onPressExit}) {
@@ -125,11 +125,11 @@ abstract class VersionControlManager {
       actions: [
         Row(
           children: [
-            _currentPlatformPlaystoreUrl != null
+            currentPlaystoreUrl != null
                 ? Expanded(
                     child: TextButton(
                         onPressed: () {
-                          launch(_currentPlatformPlaystoreUrl);
+                          launch(currentPlaystoreUrl);
                         },
                         child: Expanded(
                           child: Row(
@@ -331,7 +331,7 @@ abstract class VersionControlManager {
               onWillPop: () async {
                 return false;
               },
-              child: mustUpdateWidget(context,
+              child: mustUpdateWidget(context, _currentPlatformPlaystoreUrl,
                   onPressedDownload: () {
                     Navigator.pop(context);
                     _downloadNewVersion();
