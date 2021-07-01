@@ -48,7 +48,16 @@ abstract class VersionControlManager {
         ?.value;
   }
 
+  String get _currentPlatformUpdateUrl {
+    if (updateDownloadUrl == null) return null;
+    return updateDownloadUrl.entries
+        .firstWhere((entry) => entry.key == Platform.operatingSystem,
+            orElse: () => null)
+        ?.value;
+  }
+
   Widget shouldUpdateWidget(BuildContext context, String currentPlaystoreUrl,
+      bool isDirectDownloadSupportedPlatform, String currentPlatformUpdateUrl,
       {@required Function onPressedDownload,
       @required Function onPressedGooglePlayUpdate,
       @required Function onPressNotNow}) {
@@ -94,7 +103,8 @@ abstract class VersionControlManager {
                         )),
                   )
                 : Spacer(),
-            (isDirectDownloadSupportedPlatform)
+            (isDirectDownloadSupportedPlatform &&
+                    currentPlatformUpdateUrl != null)
                 ? TextButton(
                     onPressed: () {
                       onPressedDownload();
@@ -115,6 +125,7 @@ abstract class VersionControlManager {
   }
 
   Widget mustUpdateWidget(BuildContext context, String currentPlaystoreUrl,
+      bool isDirectDownloadSupportedPlatform, String currentPlatformUpdateUrl,
       {@required Function onPressedDownload,
       @required Function onPressedGooglePlayUpdate,
       @required Function onPressExit}) {
@@ -159,7 +170,8 @@ abstract class VersionControlManager {
                           ],
                         )))
                 : Spacer(),
-            isDirectDownloadSupportedPlatform
+            (isDirectDownloadSupportedPlatform &&
+                    currentPlatformUpdateUrl != null)
                 ? Builder(
                     builder: (context) => TextButton(
                       onPressed: () async {
@@ -223,10 +235,7 @@ abstract class VersionControlManager {
     }
     String url;
     try {
-      url = updateDownloadUrl.entries
-          .firstWhere((element) => element.key == Platform.operatingSystem,
-              orElse: () => null)
-          ?.value;
+      url = _currentPlatformUpdateUrl;
     } catch (e) {
       _helper.addProgress(StreamedProgress.error(errorMessage: e?.toString()));
     }
@@ -318,6 +327,7 @@ abstract class VersionControlManager {
           return WillPopScope(
             onWillPop: () async => false,
             child: shouldUpdateWidget(context, _currentPlatformPlaystoreUrl,
+                isDirectDownloadSupportedPlatform, _currentPlatformUpdateUrl,
                 onPressedDownload: () {
                   Navigator.pop(context, true);
                 },
@@ -339,6 +349,7 @@ abstract class VersionControlManager {
                 return false;
               },
               child: mustUpdateWidget(context, _currentPlatformPlaystoreUrl,
+                  isDirectDownloadSupportedPlatform, _currentPlatformUpdateUrl,
                   onPressedDownload: () {
                     Navigator.pop(context);
                     _downloadNewVersion();
