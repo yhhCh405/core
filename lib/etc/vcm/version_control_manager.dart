@@ -79,11 +79,13 @@ abstract class VersionControlManager {
                           width: 30,
                           height: 30,
                         ),
-                        Text(Platform.isAndroid
-                            ? 'Download on playstore'
-                            : Platform.isIOS
-                                ? 'Download on appstore'
-                                : "")
+                        Expanded(
+                          child: Text(Platform.isAndroid
+                              ? 'Download on playstore'
+                              : Platform.isIOS
+                                  ? 'Download on appstore'
+                                  : ""),
+                        )
                       ],
                     ))
                 : Container(),
@@ -143,11 +145,13 @@ abstract class VersionControlManager {
                                 width: 30,
                                 height: 30,
                               ),
-                              Text(Platform.isAndroid
-                                  ? 'Download on playstore'
-                                  : Platform.isIOS
-                                      ? 'Download on appstore'
-                                      : "")
+                              Expanded(
+                                child: Text(Platform.isAndroid
+                                    ? 'Download on playstore'
+                                    : Platform.isIOS
+                                        ? 'Download on appstore'
+                                        : ""),
+                              )
                             ],
                           ))
                     ],
