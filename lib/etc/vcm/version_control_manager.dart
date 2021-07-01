@@ -64,36 +64,31 @@ abstract class VersionControlManager {
         Row(
           children: [
             _currentPlatformPlaystoreUrl != null
-                ? Expanded(
+                ? TextButton(
+                    onPressed: () {
+                      launch(_currentPlatformPlaystoreUrl);
+                    },
                     child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      TextButton(
-                          onPressed: () {
-                            launch(_currentPlatformPlaystoreUrl);
-                          },
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                Platform.isAndroid
-                                    ? playstoreIconAssetImagePath
-                                    : Platform.isIOS
-                                        ? appstoreIconAssetImagePath
-                                        : Container(),
-                                width: 20,
-                                fit: BoxFit.cover,
-                                height: 20,
-                              ),
-                              Text(Platform.isAndroid
-                                  ? 'Download on playstore'
-                                  : Platform.isIOS
-                                      ? 'Download on appstore'
-                                      : "")
-                            ],
-                          ))
-                    ],
-                  ))
+                      children: [
+                        Image.asset(
+                          Platform.isAndroid
+                              ? playstoreIconAssetImagePath
+                              : Platform.isIOS
+                                  ? appstoreIconAssetImagePath
+                                  : Container(),
+                          width: 20,
+                          fit: BoxFit.cover,
+                          height: 20,
+                        ),
+                        Text(Platform.isAndroid
+                            ? 'Download on playstore'
+                            : Platform.isIOS
+                                ? 'Download on appstore'
+                                : "")
+                      ],
+                    ))
                 : Container(),
+            Spacer(),
             (isDirectDownloadSupportedPlatform)
                 ? TextButton(
                     onPressed: () {
