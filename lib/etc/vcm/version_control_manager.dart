@@ -64,30 +64,30 @@ abstract class VersionControlManager {
         Row(
           children: [
             _currentPlatformPlaystoreUrl != null
-                ? TextButton(
-                    onPressed: () {
-                      launch(_currentPlatformPlaystoreUrl);
-                    },
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          Platform.isAndroid
-                              ? playstoreIconAssetImagePath
-                              : Platform.isIOS
-                                  ? appstoreIconAssetImagePath
-                                  : Container(),
-                          width: 30,
-                          height: 30,
-                        ),
-                        Expanded(
-                          child: Text(Platform.isAndroid
-                              ? 'Download on playstore'
-                              : Platform.isIOS
-                                  ? 'Download on appstore'
-                                  : ""),
-                        )
-                      ],
-                    ))
+                ? Expanded(
+                    child: TextButton(
+                        onPressed: () {
+                          launch(_currentPlatformPlaystoreUrl);
+                        },
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              Platform.isAndroid
+                                  ? playstoreIconAssetImagePath
+                                  : Platform.isIOS
+                                      ? appstoreIconAssetImagePath
+                                      : Container(),
+                              width: 30,
+                              height: 30,
+                            ),
+                            Text(Platform.isAndroid
+                                ? 'Download on playstore'
+                                : Platform.isIOS
+                                    ? 'Download on appstore'
+                                    : "")
+                          ],
+                        )),
+                  )
                 : Container(),
             Spacer(),
             (isDirectDownloadSupportedPlatform)
@@ -127,35 +127,28 @@ abstract class VersionControlManager {
           children: [
             _currentPlatformPlaystoreUrl != null
                 ? Expanded(
-                    child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      TextButton(
-                          onPressed: () {
-                            launch(_currentPlatformPlaystoreUrl);
-                          },
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                Platform.isAndroid
-                                    ? playstoreIconAssetImagePath
-                                    : Platform.isIOS
-                                        ? appstoreIconAssetImagePath
-                                        : Container(),
-                                width: 30,
-                                height: 30,
-                              ),
-                              Expanded(
-                                child: Text(Platform.isAndroid
-                                    ? 'Download on playstore'
-                                    : Platform.isIOS
-                                        ? 'Download on appstore'
-                                        : ""),
-                              )
-                            ],
-                          ))
-                    ],
-                  ))
+                    child: TextButton(
+                        onPressed: () {
+                          launch(_currentPlatformPlaystoreUrl);
+                        },
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              Platform.isAndroid
+                                  ? playstoreIconAssetImagePath
+                                  : Platform.isIOS
+                                      ? appstoreIconAssetImagePath
+                                      : Container(),
+                              width: 30,
+                              height: 30,
+                            ),
+                            Text(Platform.isAndroid
+                                ? 'Download on playstore'
+                                : Platform.isIOS
+                                    ? 'Download on appstore'
+                                    : "")
+                          ],
+                        )))
                 : Container(),
             isDirectDownloadSupportedPlatform
                 ? Builder(
