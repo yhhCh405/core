@@ -80,8 +80,9 @@ abstract class VersionControlManager {
                                     : Platform.isIOS
                                         ? appstoreIconAssetImagePath
                                         : Container(),
-                                width: 30,
-                                height: 30,
+                                width: 20,
+                                fit: BoxFit.cover,
+                                height: 20,
                               ),
                               Text(Platform.isAndroid
                                   ? 'Download on playstore'
