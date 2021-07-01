@@ -89,7 +89,7 @@ abstract class VersionControlManager {
                         )),
                   )
                 : Container(),
-            Spacer(),
+            // Spacer(),
             (isDirectDownloadSupportedPlatform)
                 ? TextButton(
                     onPressed: () {
@@ -131,23 +131,25 @@ abstract class VersionControlManager {
                         onPressed: () {
                           launch(_currentPlatformPlaystoreUrl);
                         },
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              Platform.isAndroid
-                                  ? playstoreIconAssetImagePath
+                        child: Expanded(
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                Platform.isAndroid
+                                    ? playstoreIconAssetImagePath
+                                    : Platform.isIOS
+                                        ? appstoreIconAssetImagePath
+                                        : Container(),
+                                width: 30,
+                                height: 30,
+                              ),
+                              Text(Platform.isAndroid
+                                  ? 'Download on playstore'
                                   : Platform.isIOS
-                                      ? appstoreIconAssetImagePath
-                                      : Container(),
-                              width: 30,
-                              height: 30,
-                            ),
-                            Text(Platform.isAndroid
-                                ? 'Download on playstore'
-                                : Platform.isIOS
-                                    ? 'Download on appstore'
-                                    : "")
-                          ],
+                                      ? 'Download on appstore'
+                                      : "")
+                            ],
+                          ),
                         )))
                 : Container(),
             isDirectDownloadSupportedPlatform
