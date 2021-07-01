@@ -48,7 +48,7 @@ abstract class VersionControlManager {
         .value;
   }
 
-  Widget shouldUpdateWidget(BuildContext context,
+  Widget shouldUpdateWidget(BuildContext context, String currentPlaystoreUrl,
       {@required Function onPressedDownload,
       @required Function onPressedGooglePlayUpdate,
       @required Function onPressNotNow}) {
@@ -63,11 +63,11 @@ abstract class VersionControlManager {
       actions: [
         Row(
           children: [
-            _currentPlatformPlaystoreUrl != null
+            currentPlaystoreUrl != null
                 ? Expanded(
                     child: TextButton(
                         onPressed: () {
-                          launch(_currentPlatformPlaystoreUrl);
+                          launch(currentPlaystoreUrl);
                         },
                         child: Row(
                           children: [
@@ -80,16 +80,20 @@ abstract class VersionControlManager {
                               width: 30,
                               height: 30,
                             ),
-                            Text(Platform.isAndroid
-                                ? 'Download on playstore'
-                                : Platform.isIOS
-                                    ? 'Download on appstore'
-                                    : "")
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: Text(Platform.isAndroid
+                                  ? 'Download on playstore'
+                                  : Platform.isIOS
+                                      ? 'Download on appstore'
+                                      : ""),
+                            )
                           ],
                         )),
                   )
-                : Container(),
-            // Spacer(),
+                : Spacer(),
             (isDirectDownloadSupportedPlatform)
                 ? TextButton(
                     onPressed: () {
@@ -131,27 +135,30 @@ abstract class VersionControlManager {
                         onPressed: () {
                           launch(currentPlaystoreUrl);
                         },
-                        child: Expanded(
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                Platform.isAndroid
-                                    ? playstoreIconAssetImagePath
-                                    : Platform.isIOS
-                                        ? appstoreIconAssetImagePath
-                                        : Container(),
-                                width: 30,
-                                height: 30,
-                              ),
-                              Text(Platform.isAndroid
-                                  ? 'Download on playstore'
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              Platform.isAndroid
+                                  ? playstoreIconAssetImagePath
                                   : Platform.isIOS
-                                      ? 'Download on appstore'
-                                      : "")
-                            ],
-                          ),
+                                      ? appstoreIconAssetImagePath
+                                      : Container(),
+                              width: 30,
+                              height: 30,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: Text(Platform.isAndroid
+                                  ? 'Download on Playstore'
+                                  : Platform.isIOS
+                                      ? 'Download on Appstore'
+                                      : ""),
+                            )
+                          ],
                         )))
-                : Container(),
+                : Spacer(),
             isDirectDownloadSupportedPlatform
                 ? Builder(
                     builder: (context) => TextButton(
@@ -310,7 +317,7 @@ abstract class VersionControlManager {
         builder: (context) {
           return WillPopScope(
             onWillPop: () async => false,
-            child: shouldUpdateWidget(context,
+            child: shouldUpdateWidget(context, _currentPlatformPlaystoreUrl,
                 onPressedDownload: () {
                   Navigator.pop(context, true);
                 },
