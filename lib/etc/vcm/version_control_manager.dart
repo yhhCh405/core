@@ -81,6 +81,7 @@ abstract class VersionControlManager {
                                         ? appstoreIconAssetImagePath
                                         : Container(),
                                 width: 30,
+                                height: 30,
                               ),
                               Text(Platform.isAndroid
                                   ? 'Download on playstore'
